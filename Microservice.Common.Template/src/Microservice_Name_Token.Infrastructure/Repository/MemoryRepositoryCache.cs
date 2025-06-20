@@ -43,22 +43,28 @@ public class MemoryRepositoryCache<T> : IRepository<T>
             return cached.Value;
         }
 
-        throw new Exception($"No cache entry for key: {typeof(T).Name}:GetAll");
-    }
-
-    public async Task<IEnumerable<T>> GetByQuery(string query)
-    {
-        var cached = await this.memoryCache.TryGetAsync<IEnumerable<T>>($"{typeof(T).Name}:{query}");
-        if (cached.HasValue)
-        {
-            return cached.Value;
-        }
-
-        throw new Exception($"No cache entry for key: {typeof(T).Name}:{query}");
+        return Enumerable.Empty<T>();
     }
 
     public async Task UpsertAll(IEnumerable<T> list)
     {
+        var existing = (await this.GetAll()).ToList();
+        var newList = list.ToList();
+
+        // Get existing IDs
+        var existingIds = new HashSet<object>(existing
+            .Where(e => e != null)
+            .Select(e => (object)((dynamic)e).id));
+
+        // Add only entities with unique IDs
+        var merged = existing
+            .Concat(newList.Where(e => e != null && !existingIds.Contains((object)((dynamic)e).id)))
+            .ToList();
+
+        var cached = merged;
+        await this.memoryCache.SetAsync($"{typeof(T).Name}:GetAll", cached);
+
+        // Cache each entity individually
         foreach (var entity in list.ToList())
         {
             if (entity is null)
@@ -74,5 +80,16 @@ public class MemoryRepositoryCache<T> : IRepository<T>
 
             await this.memoryCache.SetAsync($"{typeof(T).Name}:{id}", entity);
         }
+    }
+
+    public async Task<IEnumerable<T>> GetByQuery(string query)
+    {
+        var cached = await this.memoryCache.TryGetAsync<IEnumerable<T>>($"{typeof(T).Name}:{query}");
+        if (cached.HasValue)
+        {
+            return cached.Value;
+        }
+
+        throw new Exception($"No cache entry for key: {typeof(T).Name}:{query}");
     }
 }

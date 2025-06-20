@@ -25,9 +25,3 @@ To use the template is mandatory to import the template:
     ```bash
     dotnet new dotnet-clean-architecture-template -n "MyAPIService" -o "C:\$GIT\$REPO"
     ```
-
-5. To uninstall or simply to replace the template with a new one you have just to uninstall it and start from point 3
-
-    ```bash
-    dotnet new -u BI_Microservice_common_Template
-    ```
