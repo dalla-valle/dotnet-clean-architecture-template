@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microservice_Name_Token.Infrastructure\Microservice_Name_Token.Infrastructure.csproj" />
+    <ProjectReference Include="..\Microservice_Name_Token.Contracts\Microservice_Name_Token.Contracts.csproj" />
+    <ProjectReference Include="..\Microservice_Name_Token.Domain\Microservice_Name_Token.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

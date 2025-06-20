@@ -1,0 +1,23 @@
+# @name login
+POST https://localhost:7094/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+###
+# @name getSuperApi
+GET https://localhost:7094/SuperApi/a5347cf3-103c-483a-8e96-25e9d17cf126
+Authorization: Bearer {{login.response.body.token}}
+Accept: application/json
+###
+# @name postSuperApi
+POST https://localhost:7094/SuperApi/a5347cf3-103c-483a-8e96-25e9d17cf126
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": "a5347cf3-103c-483a-8e96-25e9d17cf126"
+}

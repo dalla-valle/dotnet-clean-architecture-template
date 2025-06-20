@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Dalla Valle Sergio",
+  "classifications": [
+    "Api"
+  ],
+  "identity": "Microservice.Common.Template",
+  "name": "dotnet-clean-architecture-template",
+  "shortName": "dotnet-clean-architecture-template",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "Microservice_Name_Token",
+  "preferNameDirectory": true,
+  "symbols": {
+    "includetest": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!includetest)",
+          "exclude": [
+            "Microservice_Name_Token.Tests/**/*"
+          ]
+        },
+        {
+          "condition": "(true)",
+          "exclude": [
+            ".vs/**/*"
+          ]
+        }
+      ]
+    }
+  ]
+}

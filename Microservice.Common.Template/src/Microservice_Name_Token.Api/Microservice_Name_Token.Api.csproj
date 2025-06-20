@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microservice_Name_Token.Application\Microservice_Name_Token.Application.csproj" />
+    <InternalsVisibleTo Include="Microservice_Name_Token.Application.IntegrationTests.csproj" />
+  </ItemGroup>
+
+</Project>
